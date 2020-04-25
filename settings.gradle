@@ -1,0 +1,2 @@
+rootProject.name='Dish Wish'
+include ':app'
