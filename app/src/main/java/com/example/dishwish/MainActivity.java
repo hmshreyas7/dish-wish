@@ -15,10 +15,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Define a custom adapter to power a view pager with fragments
         ViewPager viewPager = findViewById(R.id.pager);
         CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(customPagerAdapter);
 
+        // Use the view pager to power a tab layout
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -2,7 +2,6 @@ package com.example.dishwish;
 
 import android.content.Context;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -16,11 +15,22 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    /**
+     * Returns the number of fragments compiled together in the adapter.
+     *
+     * @return the number of fragments
+     */
     @Override
     public int getCount() {
         return 2;
     }
 
+    /**
+     * Returns an instance of the appropriate fragment based on its position in the adapter.
+     *
+     * @param position the position of a fragment in the adapter
+     * @return a new fragment instance
+     */
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
@@ -30,6 +40,12 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+    /**
+     * Returns the relevant page title for a fragment in the adapter based on its position.
+     *
+     * @param position the position of a fragment in the adapter
+     * @return a fragment's page title
+     */
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
