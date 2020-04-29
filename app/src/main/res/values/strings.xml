@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Dish Wish</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="cook">To Cook</string>
 
     <string name="eat">To Eat</string>
+
+    <string name="dish_title">Dish Title</string>
+
+    <string name="add_to">Add to…</string>
+
+    <string name="add_dish">Add Dish</string>
 </resources>
