@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Dish Wish</string>
-
     <string name="cook">To Cook</string>
-
     <string name="eat">To Eat</string>
-
-    <string name="dish_title">Dish Title</string>
-
-    <string name="add_to">Add to…</string>
-
+    <string name="dish_title">Name of the Dish</string>
+    <string name="dish_type">Dish Type</string>
+    <string name="category">Category</string>
     <string name="add_dish">Add Dish</string>
+    <string name="done">Done</string>
+    <string name="character_count">50</string>
+    <string name="savory">Savory</string>
+    <string name="sweet">Sweet</string>
 </resources>
