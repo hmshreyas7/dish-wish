@@ -44,6 +44,8 @@ public class AddDishActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu with custom menu resource file
         getMenuInflater().inflate(R.menu.app_bar_options, menu);
+
+        // Disable "done" by default
         MenuItem doneItem = menu.findItem(R.id.done);
         doneItem.setVisible(false);
         return true;
