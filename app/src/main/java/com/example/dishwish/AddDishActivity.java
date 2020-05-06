@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -44,6 +45,15 @@ public class AddDishActivity extends AppCompatActivity {
         // Inflate the menu with custom menu resource file
         getMenuInflater().inflate(R.menu.app_bar_options, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.done) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
