@@ -4,13 +4,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class AddDishActivity extends AppCompatActivity {
 
@@ -46,8 +49,28 @@ public class AddDishActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.app_bar_options, menu);
 
         // Disable "done" by default
-        MenuItem doneItem = menu.findItem(R.id.done);
+        final MenuItem doneItem = menu.findItem(R.id.done);
         doneItem.setVisible(false);
+
+        // Handle events based on how the dish title changes
+        final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        dishTitleText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                doneItem.setVisible(dishTitleText.getText().toString().length() > 0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         return true;
     }
 
