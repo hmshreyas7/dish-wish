@@ -53,12 +53,13 @@ public class AddDishActivity extends AppCompatActivity {
         addDishLayout.setFocusableInTouchMode(true);
 
         final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        dishTitleText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         dishTitleText.requestFocus();
 
         dishTitleText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(!dishTitleText.isFocused()) {
+                if (!dishTitleText.isFocused()) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(dishTitleText.getWindowToken(), 0);
                     dishTitleText.clearFocus();
