@@ -3,14 +3,18 @@ package com.example.dishwish;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.LinearLayout;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,6 +45,26 @@ public class AddDishActivity extends AppCompatActivity {
         AutoCompleteTextView category = findViewById(R.id.category);
         String[] categoryOptions = new String[]{getString(R.string.cook), getString(R.string.eat)};
         buildMenuItems(category, categoryOptions);
+
+        // Show/hide keyboard depending on focus
+        LinearLayout addDishLayout = findViewById(R.id.add_dish_layout);
+        addDishLayout.setClickable(true);
+        addDishLayout.setFocusable(true);
+        addDishLayout.setFocusableInTouchMode(true);
+
+        final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        dishTitleText.requestFocus();
+
+        dishTitleText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!dishTitleText.isFocused()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(dishTitleText.getWindowToken(), 0);
+                    dishTitleText.clearFocus();
+                }
+            }
+        });
     }
 
     @Override
