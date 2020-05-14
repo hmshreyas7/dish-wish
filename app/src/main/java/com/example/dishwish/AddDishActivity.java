@@ -3,7 +3,9 @@ package com.example.dishwish;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -16,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 
+import com.example.dishwish.data.DishContract.DishEntry;
+import com.example.dishwish.data.DishDbHelper;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -83,6 +87,7 @@ public class AddDishActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.done) {
+            addDish();
             finish();
             return true;
         }
@@ -126,5 +131,38 @@ public class AddDishActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void addDish() {
+        TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        AutoCompleteTextView dishType = findViewById(R.id.dish_type);
+        AutoCompleteTextView category = findViewById(R.id.category);
+
+        // To access database, instantiate subclass of SQLiteOpenHelper
+        DishDbHelper dishDbHelper = new DishDbHelper(getApplicationContext());
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = dishDbHelper.getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(DishEntry.COLUMN_DISH_TITLE, dishTitleText.getText().toString().trim());
+
+        if(dishType.getText().toString().equals(getString(R.string.savory))) {
+            values.put(DishEntry.COLUMN_DISH_TYPE, DishEntry.DISH_TYPE_SAVORY);
+        }
+        else {
+            values.put(DishEntry.COLUMN_DISH_TYPE, DishEntry.DISH_TYPE_SWEET);
+        }
+
+        if(category.getText().toString().equals(getString(R.string.cook))) {
+            values.put(DishEntry.COLUMN_CATEGORY, DishEntry.CATEGORY_COOK);
+        }
+        else {
+            values.put(DishEntry.COLUMN_CATEGORY, DishEntry.CATEGORY_EAT);
+        }
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(DishEntry.TABLE_NAME, null, values);
     }
 }
