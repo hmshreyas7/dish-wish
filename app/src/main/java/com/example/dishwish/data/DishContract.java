@@ -49,13 +49,13 @@ public final class DishContract {
         /**
          * Possible values for dish type.
          */
-        private static final int DISH_TYPE_SAVORY = 1;
-        private static final int DISH_TYPE_SWEET = 2;
+        public static final int DISH_TYPE_SAVORY = 1;
+        public static final int DISH_TYPE_SWEET = 2;
 
         /**
          * Possible values for dish category.
          */
-        private static final int CATEGORY_COOK = 1;
-        private static final int CATEGORY_EAT = 2;
+        public static final int CATEGORY_COOK = 1;
+        public static final int CATEGORY_EAT = 2;
     }
 }
