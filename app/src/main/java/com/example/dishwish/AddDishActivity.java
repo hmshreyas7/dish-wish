@@ -46,26 +46,7 @@ public class AddDishActivity extends AppCompatActivity {
         String[] categoryOptions = new String[]{getString(R.string.cook), getString(R.string.eat)};
         buildMenuItems(category, categoryOptions);
 
-        // Show/hide keyboard depending on focus
-        LinearLayout addDishLayout = findViewById(R.id.add_dish_layout);
-        addDishLayout.setClickable(true);
-        addDishLayout.setFocusable(true);
-        addDishLayout.setFocusableInTouchMode(true);
-
-        final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
-        dishTitleText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        dishTitleText.requestFocus();
-
-        dishTitleText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!dishTitleText.isFocused()) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(dishTitleText.getWindowToken(), 0);
-                    dishTitleText.clearFocus();
-                }
-            }
-        });
+        toggleKeyboard();
     }
 
     @Override
@@ -120,5 +101,30 @@ public class AddDishActivity extends AppCompatActivity {
         ArrayAdapter<String> menuAdapter = new ArrayAdapter<>(getApplicationContext(),
                 R.layout.dropdown_menu_items, items);
         menu.setAdapter(menuAdapter);
+    }
+
+    /**
+     * Shows/hides the keyboard depending on what is focused.
+     */
+    public void toggleKeyboard() {
+        LinearLayout addDishLayout = findViewById(R.id.add_dish_layout);
+        addDishLayout.setClickable(true);
+        addDishLayout.setFocusable(true);
+        addDishLayout.setFocusableInTouchMode(true);
+
+        final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        dishTitleText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        dishTitleText.requestFocus();
+
+        dishTitleText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!dishTitleText.isFocused()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(dishTitleText.getWindowToken(), 0);
+                    dishTitleText.clearFocus();
+                }
+            }
+        });
     }
 }
