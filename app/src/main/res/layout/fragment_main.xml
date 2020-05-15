@@ -5,4 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".CookFragment">
 
+    <TextView
+        android:id="@+id/database_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </FrameLayout>
