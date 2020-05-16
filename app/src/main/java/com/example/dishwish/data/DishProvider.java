@@ -1,10 +1,14 @@
 package com.example.dishwish.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+
+import com.example.dishwish.data.DishContract.DishEntry;
 
 public class DishProvider extends ContentProvider {
 
@@ -37,7 +41,41 @@ public class DishProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
-        return null;
+        // Get readable database
+        SQLiteDatabase db = dishDbHelper.getReadableDatabase();
+        // Cursor to hold result of query
+        Cursor cursor;
+
+        // Find what code the URI matches to
+        int match = uriMatcher.match(uri);
+        // Execute query based on the type of URI
+        switch (match) {
+            case DISHES:
+                cursor = db.query(DishEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case DISH_ID:
+                selection = DishEntry._ID + " = ?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+
+                cursor = db.query(DishEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot query unknown URI " + uri);
+        }
+
+        return cursor;
     }
 
     /**
