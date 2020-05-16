@@ -7,11 +7,14 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.dishwish.data.DishContract.DishEntry;
 
 public class DishProvider extends ContentProvider {
 
+    // Tag for log messages
+    public static final String LOG_TAG = DishProvider.class.getSimpleName();
     private static final int DISHES = 100;
     private static final int DISH_ID = 101;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -83,7 +86,29 @@ public class DishProvider extends ContentProvider {
      */
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        return null;
+        // Get writable database
+        SQLiteDatabase db = dishDbHelper.getWritableDatabase();
+
+        // ID of the inserted row
+        long newRowId;
+
+        // Find what code the URI matches to
+        int match = uriMatcher.match(uri);
+        // Execute query based on the type of URI
+        if (match == DISHES) {
+            newRowId = db.insert(DishEntry.TABLE_NAME, null, contentValues);
+        } else {
+            throw new IllegalArgumentException("Cannot query unknown URI " + uri);
+        }
+
+        // If the ID is -1, then the insertion failed. Log an error and return null.
+        if (newRowId == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            return null;
+        }
+
+        // Return the new URI with the newly inserted row's ID appended at the end
+        return ContentUris.withAppendedId(uri, newRowId);
     }
 
     /**
