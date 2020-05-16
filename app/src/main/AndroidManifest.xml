@@ -29,6 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <provider
+            android:name=".data.DishProvider"
+            android:authorities="com.example.dishwish"
+            android:exported="false" />
     </application>
 
 </manifest>
