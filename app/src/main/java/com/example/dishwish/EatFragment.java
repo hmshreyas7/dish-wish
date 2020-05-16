@@ -1,7 +1,6 @@
 package com.example.dishwish;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.dishwish.data.DishContract.DishEntry;
-import com.example.dishwish.data.DishDbHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,9 +71,6 @@ public class EatFragment extends Fragment {
     }
 
     private void readDishInfo() {
-        DishDbHelper dishDbHelper = new DishDbHelper(getContext());
-        SQLiteDatabase db = dishDbHelper.getReadableDatabase();
-
         // Define a projection that specifies which columns from the database
         // will actually be used after this query
         String[] projection = {
@@ -85,20 +80,16 @@ public class EatFragment extends Fragment {
 
         // Filter results
         String selection = DishEntry.COLUMN_CATEGORY + " = ?";
-        String[] selectionArgs = { Integer.toString(DishEntry.CATEGORY_EAT) };
+        String[] selectionArgs = {Integer.toString(DishEntry.CATEGORY_EAT)};
 
         // How the results should be sorted in the resulting Cursor
         String sortOrder = DishEntry.COLUMN_DISH_TITLE;
 
-        Cursor cursor = db.query(
-                DishEntry.TABLE_NAME,   // The table to query
-                projection,             // The array of columns to return (pass null to get all)
-                selection,              // The columns for the WHERE clause
-                selectionArgs,          // The values for the WHERE clause
-                null,                    // don't group the rows
-                null,                   // don't filter by row groups
-                sortOrder               // The sort order
-        );
+        Cursor cursor = getContext().getContentResolver().query(DishEntry.CONTENT_URI,
+                projection,
+                selection,
+                selectionArgs,
+                sortOrder);
 
         TextView databaseInfoView = getView().findViewById(R.id.database_info);
         databaseInfoView.setText("");
@@ -115,8 +106,7 @@ public class EatFragment extends Fragment {
                 String values = dishTitle + " " + dishType + "\n";
                 databaseInfoView.append(values);
             }
-        }
-        finally {
+        } finally {
             cursor.close();
         }
     }
