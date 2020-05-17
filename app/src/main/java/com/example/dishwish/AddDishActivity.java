@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.dishwish.data.DishContract.DishEntry;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -155,7 +156,13 @@ public class AddDishActivity extends AppCompatActivity {
             values.put(DishEntry.COLUMN_CATEGORY, DishEntry.CATEGORY_EAT);
         }
 
-        // Insert the new row, returning the primary key value of the new row
+        // Insert the new row, returning the URI with that row's ID appended at the end
         Uri newUri = getContentResolver().insert(DishEntry.CONTENT_URI, values);
+
+        if (newUri == null) {
+            Toast.makeText(this, getString(R.string.insertion_fail), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.insertion_success), Toast.LENGTH_SHORT).show();
+        }
     }
 }
