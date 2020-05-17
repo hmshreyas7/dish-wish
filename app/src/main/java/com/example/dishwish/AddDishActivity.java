@@ -63,6 +63,7 @@ public class AddDishActivity extends AppCompatActivity {
 
         // Handle events based on how the dish title changes
         final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        final int maxDishTitleLength = 50;
         dishTitleText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -71,7 +72,8 @@ public class AddDishActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                doneItem.setVisible(dishTitleText.getText().toString().length() > 0);
+                String dishTitleString = dishTitleText.getText().toString();
+                doneItem.setVisible(dishTitleString.trim().length() > 0 && dishTitleString.length() <= maxDishTitleLength);
             }
 
             @Override
