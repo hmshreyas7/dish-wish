@@ -10,4 +10,6 @@
     <string name="character_count">50</string>
     <string name="savory">Savory</string>
     <string name="sweet">Sweet</string>
+    <string name="insertion_fail">Failed to add dish</string>
+    <string name="insertion_success">New dish added</string>
 </resources>
