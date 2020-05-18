@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
@@ -74,6 +74,7 @@ public class EatFragment extends Fragment {
         // Define a projection that specifies which columns from the database
         // will actually be used after this query
         String[] projection = {
+                DishEntry._ID,
                 DishEntry.COLUMN_DISH_TITLE,
                 DishEntry.COLUMN_DISH_TYPE
         };
@@ -91,23 +92,9 @@ public class EatFragment extends Fragment {
                 selectionArgs,
                 sortOrder);
 
-        TextView databaseInfoView = getView().findViewById(R.id.database_info);
-        databaseInfoView.setText("");
-
-        try {
-            // Get index of each column in Cursor
-            int dishTitleColumnIndex = cursor.getColumnIndex(DishEntry.COLUMN_DISH_TITLE);
-            int dishTypeColumnIndex = cursor.getColumnIndex(DishEntry.COLUMN_DISH_TYPE);
-
-            // Read values from Cursor
-            while (cursor.moveToNext()) {
-                String dishTitle = cursor.getString(dishTitleColumnIndex);
-                int dishType = cursor.getInt((dishTypeColumnIndex));
-                String values = dishTitle + " " + dishType + "\n";
-                databaseInfoView.append(values);
-            }
-        } finally {
-            cursor.close();
-        }
+        // Display values from Cursor using ListView
+        ListView databaseInfoView = getView().findViewById(R.id.database_info);
+        DishCursorAdapter dishCursorAdapter = new DishCursorAdapter(getContext(), cursor);
+        databaseInfoView.setAdapter(dishCursorAdapter);
     }
 }
