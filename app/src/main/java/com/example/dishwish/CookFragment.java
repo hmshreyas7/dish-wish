@@ -1,6 +1,7 @@
 package com.example.dishwish;
 
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import com.example.dishwish.data.DishContract.DishEntry;
 
@@ -16,11 +20,14 @@ import com.example.dishwish.data.DishContract.DishEntry;
  * Use the {@link CookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CookFragment extends Fragment {
+public class CookFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final int DISH_LOADER = 0;
+    private DishCursorAdapter dishCursorAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -55,6 +62,15 @@ public class CookFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Use ListView to display details from database
+        ListView dishListView = getView().findViewById(R.id.database_info);
+        dishCursorAdapter = new DishCursorAdapter(getContext(), null);
+        dishListView.setAdapter(dishCursorAdapter);
+
+        // Prepare the loader. Either re-connect with an existing one,
+        // or start a new one.
+        LoaderManager.getInstance(this).initLoader(DISH_LOADER, null, this);
     }
 
     @Override
@@ -94,7 +110,49 @@ public class CookFragment extends Fragment {
 
         // Display values from Cursor using ListView
         ListView databaseInfoView = getView().findViewById(R.id.database_info);
-        DishCursorAdapter dishCursorAdapter = new DishCursorAdapter(getContext(), cursor);
+        dishCursorAdapter = new DishCursorAdapter(getContext(), cursor);
         databaseInfoView.setAdapter(dishCursorAdapter);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        // URI for the content to retrieve
+        Uri uri = DishEntry.CONTENT_URI;
+
+        // Define a projection that specifies which columns from the database
+        // will actually be used after this query
+        String[] projection = {
+                DishEntry._ID,
+                DishEntry.COLUMN_DISH_TITLE,
+                DishEntry.COLUMN_DISH_TYPE
+        };
+
+        // Filter results
+        String selection = DishEntry.COLUMN_CATEGORY + " = ?";
+        String[] selectionArgs = {Integer.toString(DishEntry.CATEGORY_COOK)};
+
+        // How the results should be sorted in the resulting Cursor
+        String sortOrder = DishEntry.COLUMN_DISH_TITLE;
+
+        // Create and return a CursorLoader that will take care of
+        // creating a Cursor for the data being displayed.
+        return new CursorLoader(getActivity(),
+                uri,
+                projection,
+                selection,
+                selectionArgs,
+                sortOrder);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update {@link DishCursorAdapter} with this new cursor containing updated dish data
+        dishCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // Callback called when the data needs to be deleted
+        dishCursorAdapter.swapCursor(null);
     }
 }
