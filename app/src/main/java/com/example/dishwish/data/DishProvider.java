@@ -78,6 +78,10 @@ public class DishProvider extends ContentProvider {
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
         }
 
+        // Set notification URI on the Cursor.
+        // If the data at the specified URI changes, the Cursor needs to be updated.
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
         return cursor;
     }
 
@@ -106,6 +110,9 @@ public class DishProvider extends ContentProvider {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;
         }
+
+        // Notify all listeners that the data has changed at the specified URI
+        getContext().getContentResolver().notifyChange(uri, null);
 
         // Return the new URI with the newly inserted row's ID appended at the end
         return ContentUris.withAppendedId(uri, newRowId);
