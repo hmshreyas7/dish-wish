@@ -63,11 +63,6 @@ public class EatFragment extends Fragment implements LoaderManager.LoaderCallbac
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // Use ListView to display details from database
-        ListView dishListView = getView().findViewById(R.id.database_info);
-        dishCursorAdapter = new DishCursorAdapter(getContext(), null);
-        dishListView.setAdapter(dishCursorAdapter);
-
         // Prepare the loader. Either re-connect with an existing one,
         // or start a new one.
         LoaderManager.getInstance(this).initLoader(DISH_LOADER, null, this);
@@ -77,41 +72,14 @@ public class EatFragment extends Fragment implements LoaderManager.LoaderCallbac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
-    }
+        View layoutView = inflater.inflate(R.layout.fragment_main, container, false);
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        readDishInfo();
-    }
+        // Use ListView to display details from database
+        ListView dishListView = layoutView.findViewById(R.id.database_info);
+        dishCursorAdapter = new DishCursorAdapter(getContext(), null);
+        dishListView.setAdapter(dishCursorAdapter);
 
-    private void readDishInfo() {
-        // Define a projection that specifies which columns from the database
-        // will actually be used after this query
-        String[] projection = {
-                DishEntry._ID,
-                DishEntry.COLUMN_DISH_TITLE,
-                DishEntry.COLUMN_DISH_TYPE
-        };
-
-        // Filter results
-        String selection = DishEntry.COLUMN_CATEGORY + " = ?";
-        String[] selectionArgs = {Integer.toString(DishEntry.CATEGORY_EAT)};
-
-        // How the results should be sorted in the resulting Cursor
-        String sortOrder = DishEntry.COLUMN_DISH_TITLE;
-
-        Cursor cursor = getContext().getContentResolver().query(DishEntry.CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                sortOrder);
-
-        // Display values from Cursor using ListView
-        ListView databaseInfoView = getView().findViewById(R.id.database_info);
-        dishCursorAdapter = new DishCursorAdapter(getContext(), cursor);
-        databaseInfoView.setAdapter(dishCursorAdapter);
+        return layoutView;
     }
 
     @Override
