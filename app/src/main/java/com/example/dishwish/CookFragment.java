@@ -72,14 +72,17 @@ public class CookFragment extends Fragment implements LoaderManager.LoaderCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layoutView = inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // Use ListView to display details from database
-        ListView dishListView = layoutView.findViewById(R.id.database_info);
+        ListView dishListView = view.findViewById(R.id.database_info);
         dishCursorAdapter = new DishCursorAdapter(getContext(), null);
         dishListView.setAdapter(dishCursorAdapter);
-
-        return layoutView;
     }
 
     @Override
