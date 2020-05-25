@@ -2,17 +2,17 @@
 
 ## Overview
 
-Dish Wish is an Android app that allows users to maintain 2 types of wish lists: "To Cook" and "To Eat". These are presented in the main screen as 2 separate tabs when the user opens the app and more items can be added to either list by using the add button.
+Dish Wish is an Android app that allows users to maintain two types of wish lists: "To Cook" and "To Eat". These are presented as two separate tabs when the user opens the app and includes the option to add more items to either list.
 
 ## Project Structure
 
-This project is organized just like any other Android project built using Android Studio. The key files of interest can be found in `\app`. Within that, the 2 most important ones are `..\java` and `..\res`.
+This project is organized just like any other Android project built using Android Studio. The key files of interest can be found in `\app`. Within that, the two most important ones are `..\java` and `..\res`.
 
 More specifically, `..\java` contains classes for:
 
 1. Adding a dish
 2. Displaying the "To Cook" list items
-3. Combining the 2 lists into tabs
+3. Combining the two lists into tabs
 4. Loading the data from the database
 5. Displaying the "To Eat" list items
 6. Setting up the main screen
@@ -23,7 +23,7 @@ In addition to these, there is another directory here called `..\data`. Within t
 2. Creating a new database / connecting to an existing one
 3. Handling CRUD operations
 
-Within `..\res`, there are 3 main directories:
+Within `..\res`, there are three main directories:
 
 1. `\layout` - The screens, tabs, dropdown menus, list items, and toolbars are designed here.
 2. `\menu` - Menu items for the toolbars are designed here.
