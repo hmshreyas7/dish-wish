@@ -1,7 +1,5 @@
 # Dish Wish
 
-## Overview
-
 Dish Wish is an Android app that allows users to maintain two types of wish lists: "To Cook" and "To Eat". These are presented as two separate tabs when the user opens the app and includes the option to add more items to either list.
 
 ## Project Structure
@@ -28,3 +26,11 @@ Within `..\res`, there are three main directories:
 1. `\layout` - The screens, tabs, dropdown menus, list items, and toolbars are designed here.
 2. `\menu` - Menu items for the toolbars are designed here.
 3. `\values` - Multiple app constants for colors, dimensions, strings, and styles are defined here.
+
+## Specific Details
+
+More information about the above classes and resource files can be found using the following links:
+
+1. [User Interface](https://github.com/hmshreyas7/dish-wish/tree/master/app/src/main/java/com/example/dishwish)
+2. Database
+3. Resources
