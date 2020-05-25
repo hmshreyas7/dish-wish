@@ -1,8 +1,6 @@
-# Java Classes - UI
+# User Interface
 
-## Overview
-
-In this section, very specific details about the Java classes that handle the user interfaces can be found.
+This section includes specific details about various components of the user interface and how they are handled.
 
 ## AddDishActivity
 
