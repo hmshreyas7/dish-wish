@@ -17,7 +17,7 @@ More specifically, `..\java` contains classes for:
 5. Displaying the "To Eat" list items
 6. Setting up the main screen
 
-In addition to these, there is another directory here called `\data`. Within this, all the database-related operations are implemented such as:
+In addition to these, there is another directory here called `..\data`. Within this, all the database-related operations are implemented such as:
 
 1. Defining the schema and other database constants
 2. Creating a new database / connecting to an existing one
@@ -26,5 +26,5 @@ In addition to these, there is another directory here called `\data`. Within thi
 Within `..\res`, there are 3 main directories:
 
 1. `\layout` - The screens, tabs, dropdown menus, list items, and toolbars are designed here.
-2. `\menu` - Menu items for the toolbars are defined here.
+2. `\menu` - Menu items for the toolbars are designed here.
 3. `\values` - Multiple app constants for colors, dimensions, strings, and styles are defined here.
