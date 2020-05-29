@@ -1,11 +1,14 @@
 package com.example.dishwish;
 
+import android.content.ContentUris;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -83,6 +86,17 @@ public class EatFragment extends Fragment implements LoaderManager.LoaderCallbac
         ListView dishListView = view.findViewById(R.id.database_info);
         dishCursorAdapter = new DishCursorAdapter(getContext(), null);
         dishListView.setAdapter(dishCursorAdapter);
+
+        // Open AddDishActivity when ListView item is clicked
+        dishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), AddDishActivity.class);
+                Uri currentDishUri = ContentUris.withAppendedId(DishEntry.CONTENT_URI, id);
+                intent.setData(currentDishUri);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

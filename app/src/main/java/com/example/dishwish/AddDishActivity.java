@@ -2,13 +2,19 @@ package com.example.dishwish;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +29,13 @@ import com.example.dishwish.data.DishContract.DishEntry;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class AddDishActivity extends AppCompatActivity {
+public class AddDishActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final int DISH_LOADER = 0;
+
+    private TextInputEditText dishTitleText;
+    private AutoCompleteTextView dishType, category;
+    private Uri currentDishUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +53,27 @@ public class AddDishActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         // Build list of dish types
-        AutoCompleteTextView dishType = findViewById(R.id.dish_type);
+        dishType = findViewById(R.id.dish_type);
         String[] dishTypeOptions = new String[]{getString(R.string.savory), getString(R.string.sweet)};
         buildMenuItems(dishType, dishTypeOptions);
 
         // Build list of categories
-        AutoCompleteTextView category = findViewById(R.id.category);
+        category = findViewById(R.id.category);
         String[] categoryOptions = new String[]{getString(R.string.cook), getString(R.string.eat)};
         buildMenuItems(category, categoryOptions);
 
         toggleKeyboard();
+
+        // Get data from MainActivity to decide which mode to run in
+        Intent intent = getIntent();
+        currentDishUri = intent.getData();
+
+        if (currentDishUri == null) {
+            setTitle(R.string.add_dish);
+        } else {
+            setTitle(R.string.edit_dish);
+            LoaderManager.getInstance(this).initLoader(DISH_LOADER, null, this);
+        }
     }
 
     @Override
@@ -63,7 +86,7 @@ public class AddDishActivity extends AppCompatActivity {
         doneItem.setVisible(false);
 
         // Handle events based on how the dish title changes
-        final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        dishTitleText = findViewById(R.id.dish_title_text);
         final int maxDishTitleLength = 50;
         dishTitleText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -119,7 +142,7 @@ public class AddDishActivity extends AppCompatActivity {
         addDishLayout.setFocusable(true);
         addDishLayout.setFocusableInTouchMode(true);
 
-        final TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
+        dishTitleText = findViewById(R.id.dish_title_text);
         dishTitleText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         dishTitleText.requestFocus();
 
@@ -136,10 +159,6 @@ public class AddDishActivity extends AppCompatActivity {
     }
 
     public void addDish() {
-        TextInputEditText dishTitleText = findViewById(R.id.dish_title_text);
-        AutoCompleteTextView dishType = findViewById(R.id.dish_type);
-        AutoCompleteTextView category = findViewById(R.id.category);
-
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(DishEntry.COLUMN_DISH_TITLE, dishTitleText.getText().toString().trim());
@@ -164,5 +183,53 @@ public class AddDishActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, getString(R.string.insertion_success), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        // Define a projection that specifies which columns from the database
+        // will actually be used after this query
+        String[] projection = {
+                DishEntry._ID,
+                DishEntry.COLUMN_DISH_TITLE,
+                DishEntry.COLUMN_DISH_TYPE,
+                DishEntry.COLUMN_CATEGORY
+        };
+
+        // Create and return a CursorLoader that will take care of
+        // creating a Cursor for the data being displayed.
+        return new CursorLoader(getApplicationContext(),
+                currentDishUri,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        data.moveToFirst();
+        dishTitleText.setText(data.getString(data.getColumnIndex(DishEntry.COLUMN_DISH_TITLE)));
+        int cursorPosition = dishTitleText.length();
+        Selection.setSelection(dishTitleText.getText(), cursorPosition);
+
+        if (data.getInt(data.getColumnIndex(DishEntry.COLUMN_DISH_TYPE)) == DishEntry.DISH_TYPE_SAVORY) {
+            dishType.setText(getString(R.string.savory), false);
+        } else {
+            dishType.setText(getString(R.string.sweet), false);
+        }
+
+        if (data.getInt(data.getColumnIndex(DishEntry.COLUMN_CATEGORY)) == DishEntry.CATEGORY_COOK) {
+            category.setText(getString(R.string.cook), false);
+        } else {
+            category.setText(getString(R.string.eat), false);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        dishTitleText.setText("");
+        dishType.setText(getString(R.string.savory), false);
+        dishType.setText(getString(R.string.cook), false);
     }
 }
