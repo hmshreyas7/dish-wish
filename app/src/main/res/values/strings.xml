@@ -13,4 +13,6 @@
     <string name="sweet">Sweet</string>
     <string name="insertion_fail">Failed to add dish</string>
     <string name="insertion_success">New dish added</string>
+    <string name="update_fail">Failed to update dish</string>
+    <string name="update_success">Dish updated successfully</string>
 </resources>
