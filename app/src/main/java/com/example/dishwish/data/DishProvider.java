@@ -102,7 +102,7 @@ public class DishProvider extends ContentProvider {
         if (match == DISHES) {
             newRowId = db.insert(DishEntry.TABLE_NAME, null, contentValues);
         } else {
-            throw new IllegalArgumentException("Cannot query unknown URI " + uri);
+            throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
 
         // If the ID is -1, then the insertion failed. Log an error and return null.
@@ -123,7 +123,28 @@ public class DishProvider extends ContentProvider {
      */
     @Override
     public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-        return 0;
+        // Get writable database
+        SQLiteDatabase db = dishDbHelper.getWritableDatabase();
+
+        // Number of rows updated
+        int rows;
+
+        // Find what code the URI matches to
+        int match = uriMatcher.match(uri);
+        // Execute query based on the type of URI
+        if (match == DISH_ID) {
+            selection = DishEntry._ID + " = ?";
+            selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+            rows = db.update(DishEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+        } else {
+            throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+
+        // Notify all listeners that the data has changed at the specified URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return the number of rows updated
+        return rows;
     }
 
     /**
