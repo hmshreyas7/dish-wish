@@ -81,8 +81,11 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
         // Inflate the menu with custom menu resource file
         getMenuInflater().inflate(R.menu.app_bar_options, menu);
 
-        // Handle events based on how the dish title changes
+        // Disable "done" by default
         final MenuItem doneItem = menu.findItem(R.id.done);
+        doneItem.setVisible(false);
+
+        // Handle events based on how the dish title changes
         dishTitleText = findViewById(R.id.dish_title_text);
         final int maxDishTitleLength = 50;
         dishTitleText.addTextChangedListener(new TextWatcher() {
