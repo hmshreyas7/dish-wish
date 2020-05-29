@@ -112,7 +112,7 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.done) {
-            addDish();
+            saveDish();
             finish();
             return true;
         }
@@ -158,7 +158,7 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
         });
     }
 
-    public void addDish() {
+    public void saveDish() {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(DishEntry.COLUMN_DISH_TITLE, dishTitleText.getText().toString().trim());
@@ -175,13 +175,24 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
             values.put(DishEntry.COLUMN_CATEGORY, DishEntry.CATEGORY_EAT);
         }
 
-        // Insert the new row, returning the URI with that row's ID appended at the end
-        Uri newUri = getContentResolver().insert(DishEntry.CONTENT_URI, values);
+        if (currentDishUri == null) {
+            // Insert the new row, returning the URI with that row's ID appended at the end
+            Uri newUri = getContentResolver().insert(DishEntry.CONTENT_URI, values);
 
-        if (newUri == null) {
-            Toast.makeText(this, getString(R.string.insertion_fail), Toast.LENGTH_SHORT).show();
+            if (newUri == null) {
+                Toast.makeText(this, getString(R.string.insertion_fail), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.insertion_success), Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, getString(R.string.insertion_success), Toast.LENGTH_SHORT).show();
+            // Update the chosen item, returning the number of rows updated
+            int rows = getContentResolver().update(currentDishUri, values, null, null);
+
+            if (rows == 0) {
+                Toast.makeText(this, getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.update_success), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
