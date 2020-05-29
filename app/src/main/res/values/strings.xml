@@ -6,6 +6,7 @@
     <string name="dish_type">Dish Type</string>
     <string name="category">Category</string>
     <string name="add_dish">Add Dish</string>
+    <string name="edit_dish">Edit Dish</string>
     <string name="done">Done</string>
     <string name="character_count">50</string>
     <string name="savory">Savory</string>
