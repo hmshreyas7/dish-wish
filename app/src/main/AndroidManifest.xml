@@ -20,7 +20,6 @@
         </activity>
         <activity
             android:name=".AddDishActivity"
-            android:label="@string/add_dish"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateVisible">
 
