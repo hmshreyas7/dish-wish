@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class CustomPagerAdapter extends FragmentPagerAdapter {
+import com.example.dishwish.data.DishContract.DishEntry;
+
+public class DishFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
 
-    public CustomPagerAdapter(Context context, FragmentManager fm) {
+    public DishFragmentPagerAdapter(Context context, FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
     }
@@ -34,9 +36,9 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new CookFragment();
+            return DishFragment.newInstance(DishEntry.CATEGORY_COOK);
         } else {
-            return new EatFragment();
+            return DishFragment.newInstance(DishEntry.CATEGORY_EAT);
         }
     }
 
