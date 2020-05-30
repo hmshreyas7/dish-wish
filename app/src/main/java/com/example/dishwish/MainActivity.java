@@ -24,15 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Define a custom adapter to power a view pager with fragments
         ViewPager viewPager = findViewById(R.id.pager);
-        CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(this, getSupportFragmentManager());
-        viewPager.setAdapter(customPagerAdapter);
+        DishFragmentPagerAdapter dishFragmentPagerAdapter = new DishFragmentPagerAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(dishFragmentPagerAdapter);
 
         // Use the view pager to power a tab layout
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-        FloatingActionButton floatingActionButton =
-                (FloatingActionButton) findViewById(R.id.floating_action_button);
+        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
