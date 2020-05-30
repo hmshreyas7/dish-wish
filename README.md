@@ -10,7 +10,7 @@ This project is organized just like any other Android project built using Androi
 
 This directory contains classes for:
 
-1. Adding a dish
+1. Adding / updating a dish
 2. Displaying the "To Cook" list items
 3. Combining the two lists into tabs
 4. Loading the data from the database
