@@ -20,9 +20,13 @@ Additionally, the toolbar contains a "done" button that appears only when user i
 
 Clicking the "done" button adds the dish to the selected list and the user is taken back to the main screen with a message popping up that either says "New dish added" (if successful) or "Failed to add dish" (if unsuccessful).
 
+It is also possible to open this screen in "edit mode" which happens when a list item on the main screen is clicked. In this mode, the title of the screen is modified appropriately and all the relevant information for the chosen item is loaded.
+
+Clicking the "done" button in this case updates the existing dish rather than creating a new one. Updates may involve modifying details about the dish or even changing which list it should belong to. A message that either says "Dish updated successfully" (if successful) or "Failed to update dish" (if unsuccessful) is displayed after this step.
+
 ## CookFragment
 
-This class corresponds to the "To Cook" tab on the main screen. The appropriate data is fetched from the database and loaded as a list here. This is done in such a way that the data automatically refreshes when the user adds a new dish.
+This class corresponds to the "To Cook" tab on the main screen. The appropriate data is fetched from the database and loaded as a list here. This is done in such a way that the data automatically refreshes when the user adds a new dish or updates an existing one. Clicking on any list item opens `AddDishActivity` in "edit mode".
 
 ## CustomPagerAdapter
 
