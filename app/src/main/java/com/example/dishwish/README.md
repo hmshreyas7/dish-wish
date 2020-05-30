@@ -24,22 +24,18 @@ It is also possible to open this screen in "edit mode" which happens when a list
 
 Clicking the "done" button in this case updates the existing dish rather than creating a new one. Updates may involve modifying details about the dish or even changing which list it should belong to. A message that either says "Dish updated successfully" (if successful) or "Failed to update dish" (if unsuccessful) is displayed after this step.
 
-## CookFragment
-
-This class corresponds to the "To Cook" tab on the main screen. The appropriate data is fetched from the database and loaded as a list here. This is done in such a way that the data automatically refreshes when the user adds a new dish or updates an existing one. Clicking on any list item opens `AddDishActivity` in "edit mode".
-
-## CustomPagerAdapter
-
-`CookFragment` and `EatFragment` are "combined" together here. This is required to view them as two tabs on the main screen. The ordering of these tabs and their corresponding title text can be modified in this class.
-
 ## DishCursorAdapter
 
 All of the items in large lists cannot fit on the user's screen. This means that when the user is scrolling through their lists, they are only able to view a subset of them at any given time. The list items that are hidden serve no purpose and this leads to inefficient memory usage. Instead of creating list items for all the items from the database at one time, this class helps in creating a fixed set of items for the ones that are visible and as the user scrolls, the data in each item is modified accordingly.
 
-## EatFragment
+## DishFragment
 
-This class corresponds to the "To Eat" tab in the main screen and works exactly like `CookFragment`. This is unnecessary and has been documented as an [issue](https://github.com/hmshreyas7/dish-wish/issues/6) for now.
+This class corresponds to each tab on the main screen. The appropriate data is fetched from the database and loaded as a list here. This is done in such a way that the data automatically refreshes when the user adds a new dish or updates an existing one. Clicking on any list item opens `AddDishActivity` in "edit mode".
+
+## DishFragmentPagerAdapter
+
+Individual fragments are "combined" together here. This is required to view them as tabs on the main screen. The ordering of these tabs and their corresponding title text can be modified in this class.
 
 ## MainActivity
 
-The two lists are displayed as tabs here with the help of `CustomPagerAdapter`. There is a "+" button on the bottom right of the screen that takes the user to `AddDishActivity` and thus, allows them to add a new dish.
+The two lists are displayed as tabs here with the help of `DishFragmentPagerAdapter`. There is a "+" button on the bottom right of the screen that takes the user to `AddDishActivity` and thus, allows them to add a new dish.

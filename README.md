@@ -11,11 +11,10 @@ This project is organized just like any other Android project built using Androi
 This directory contains classes for:
 
 1. Adding / updating a dish
-2. Displaying the "To Cook" list items
-3. Combining the two lists into tabs
-4. Loading the data from the database
-5. Displaying the "To Eat" list items
-6. Setting up the main screen
+2. Loading the data from the database
+3. Displaying the list items
+4. Combining the two lists into tabs
+5. Setting up the main screen
 
 In addition to these, there is another directory here called `..\data`. Within this, all the database-related operations are implemented such as:
 
