@@ -22,7 +22,9 @@ Clicking the "done" button adds the dish to the selected list and the user is ta
 
 It is also possible to open this screen in "edit mode" which happens when a list item on the main screen is clicked. In this mode, the title of the screen is modified appropriately and all the relevant information for the chosen item is loaded.
 
-Clicking the "done" button in this case updates the existing dish rather than creating a new one. Updates may involve modifying details about the dish or even changing which list it should belong to. Furthermore, there exists a "delete" button that allows the user to remove the dish from the database. Since this is a destructive action, a confirmation dialog is displayed first. Based on the action performed, a message is displayed after this step as well.
+Clicking the "done" button in this case updates the existing dish rather than creating a new one. Updates may involve modifying details about the dish or even changing which list it should belong to. Furthermore, there exists a "delete" button that allows the user to remove the dish from the database. Since this is a destructive action, a confirmation dialog is displayed first. Based on the action performed, a message is displayed after this step.
+
+In either mode, the user may decide to leave the screen after modifying the dish title field. If this happens, a confirmation dialog appears in this case as well to check if they really meant to do this.
 
 ## DishCursorAdapter
 
