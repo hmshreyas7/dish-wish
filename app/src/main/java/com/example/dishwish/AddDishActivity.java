@@ -1,6 +1,7 @@
 package com.example.dishwish;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -8,6 +9,7 @@ import androidx.loader.content.Loader;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -83,10 +85,12 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
 
         // Handle events based on how the dish title changes
         final MenuItem doneItem = menu.findItem(R.id.done);
+        MenuItem deleteItem = menu.findItem(R.id.delete);
         dishTitleText = findViewById(R.id.dish_title_text);
         final int maxDishTitleLength = 50;
         String initialDishTitleString = dishTitleText.getText().toString();
         doneItem.setVisible(initialDishTitleString.trim().length() > 0);
+        deleteItem.setVisible(initialDishTitleString.trim().length() > 0);
 
         dishTitleText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,12 +115,17 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.done) {
-            saveDish();
-            finish();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.done:
+                saveDish();
+                finish();
+                return true;
+            case R.id.delete:
+                showDeleteConfirmationDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -196,6 +205,46 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
         }
     }
 
+    public void deleteDish() {
+        // Delete the chosen item, returning the number of rows deleted
+        int rows = getContentResolver().delete(currentDishUri, null, null);
+
+        if (rows == 0) {
+            Toast.makeText(this, getString(R.string.delete_fail), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, add click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the dish.
+                deleteDish();
+                finish();
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the dish.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Define a projection that specifies which columns from the database
@@ -219,21 +268,22 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        data.moveToFirst();
-        dishTitleText.setText(data.getString(data.getColumnIndex(DishEntry.COLUMN_DISH_TITLE)));
-        int cursorPosition = dishTitleText.length();
-        Selection.setSelection(dishTitleText.getText(), cursorPosition);
+        if (data.moveToFirst()) {
+            dishTitleText.setText(data.getString(data.getColumnIndex(DishEntry.COLUMN_DISH_TITLE)));
+            int cursorPosition = dishTitleText.length();
+            Selection.setSelection(dishTitleText.getText(), cursorPosition);
 
-        if (data.getInt(data.getColumnIndex(DishEntry.COLUMN_DISH_TYPE)) == DishEntry.DISH_TYPE_SAVORY) {
-            dishType.setText(getString(R.string.savory), false);
-        } else {
-            dishType.setText(getString(R.string.sweet), false);
-        }
+            if (data.getInt(data.getColumnIndex(DishEntry.COLUMN_DISH_TYPE)) == DishEntry.DISH_TYPE_SAVORY) {
+                dishType.setText(getString(R.string.savory), false);
+            } else {
+                dishType.setText(getString(R.string.sweet), false);
+            }
 
-        if (data.getInt(data.getColumnIndex(DishEntry.COLUMN_CATEGORY)) == DishEntry.CATEGORY_COOK) {
-            category.setText(getString(R.string.cook), false);
-        } else {
-            category.setText(getString(R.string.eat), false);
+            if (data.getInt(data.getColumnIndex(DishEntry.COLUMN_CATEGORY)) == DishEntry.CATEGORY_COOK) {
+                category.setText(getString(R.string.cook), false);
+            } else {
+                category.setText(getString(R.string.eat), false);
+            }
         }
     }
 

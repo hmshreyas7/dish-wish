@@ -8,6 +8,7 @@
     <string name="add_dish">Add Dish</string>
     <string name="edit_dish">Edit Dish</string>
     <string name="done">Done</string>
+    <string name="delete">Delete</string>
     <string name="character_count">50</string>
     <string name="savory">Savory</string>
     <string name="sweet">Sweet</string>
@@ -15,4 +16,8 @@
     <string name="insertion_success">New dish added</string>
     <string name="update_fail">Failed to update dish</string>
     <string name="update_success">Dish updated successfully</string>
+    <string name="delete_fail">Failed to delete dish</string>
+    <string name="delete_success">Dish deleted successfully</string>
+    <string name="delete_dialog_msg">Delete this dish?</string>
+    <string name="cancel">Cancel</string>
 </resources>

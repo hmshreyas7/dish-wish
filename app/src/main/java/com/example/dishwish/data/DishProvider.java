@@ -152,7 +152,28 @@ public class DishProvider extends ContentProvider {
      */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        // Get writable database
+        SQLiteDatabase db = dishDbHelper.getWritableDatabase();
+
+        // Number of rows deleted
+        int rows;
+
+        // Find what code the URI matches to
+        int match = uriMatcher.match(uri);
+        // Execute query based on the type of URI
+        if (match == DISH_ID) {
+            selection = DishEntry._ID + " = ?";
+            selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+            rows = db.delete(DishEntry.TABLE_NAME, selection, selectionArgs);
+        } else {
+            throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
+
+        // Notify all listeners that the data has changed at the specified URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return the number of rows deleted
+        return rows;
     }
 
     /**
