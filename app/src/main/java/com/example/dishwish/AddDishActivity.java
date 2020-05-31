@@ -3,6 +3,7 @@ package com.example.dishwish;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -38,6 +39,11 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
     private TextInputEditText dishTitleText;
     private AutoCompleteTextView dishType, category;
     private Uri currentDishUri;
+
+    /**
+     * Boolean flag that keeps track of whether the dish title has been edited (true) or not (false)
+     */
+    private boolean dishHasChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +108,7 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String dishTitleString = dishTitleText.getText().toString();
                 doneItem.setVisible(dishTitleString.trim().length() > 0 && dishTitleString.length() <= maxDishTitleLength);
+                dishHasChanged = true;
             }
 
             @Override
@@ -122,6 +129,27 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
                 return true;
             case R.id.delete:
                 showDeleteConfirmationDialog();
+                return true;
+            case android.R.id.home:
+                // If the dish title hasn't changed, continue with navigating up to parent activity
+                // which is the {@link MainActivity}.
+                if (!dishHasChanged) {
+                    NavUtils.navigateUpFromSameTask(AddDishActivity.this);
+                    return true;
+                }
+
+                // Otherwise, if there are unsaved changes, setup a dialog to warn the user.
+                // Create a click listener to handle the user confirming that changes should be discarded.
+                DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked the "Discard" button, navigate to parent activity.
+                        NavUtils.navigateUpFromSameTask(AddDishActivity.this);
+                    }
+                };
+
+                // Show a dialog that notifies the user they have unsaved changes
+                showUnsavedChangesDialog(discardButtonClickListener);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -165,6 +193,56 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
                 }
             }
         });
+    }
+
+    /**
+     * Show a dialog that warns the user there are unsaved changes that will be lost
+     * if they leave the editor.
+     *
+     * @param discardButtonClickListener is the click listener for what to do when
+     *                                   the user confirms they want to discard their changes
+     */
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
+        // Create an AlertDialog.Builder and set the message, add click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep Editing" button, so dismiss the dialog
+                // and continue editing the dish.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // If the dish has not changed, handle back button press in the usual way
+        if (!dishHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+
+        // Otherwise, if there are unsaved changes, setup a dialog to warn the user.
+        // Create a click listener to handle the user confirming that changes should be discarded.
+        DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // User clicked the "Discard" button, close the current activity.
+                finish();
+            }
+        };
+
+        // Show dialog that there are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
     }
 
     public void saveDish() {
