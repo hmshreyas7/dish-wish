@@ -2,6 +2,12 @@
 
 This section includes information about various resource files that are used for different purposes in the app.
 
+## \drawable
+
+The key icons used in the app for various actions are defined in `ic_add_black_24dp`, `ic_delete_black_24dp`, and `ic_done_black_24dp`.
+
+The app logo uses the files `ic_launcher_background` and `ic_launcher_foreground` (in `\drawable-v24`).
+
 ## \layout
 
 The main screen uses a tab layout which can be found in `activity_main`. The individual tabs are designed in `fragment_main` and the list items that fill up these tabs are designed in `item_dish`.
@@ -12,7 +18,7 @@ Both these screens use `toolbar_main` at the top.
 
 ## \menu
 
-The "done" button used to add a new dish is added to the toolbar using `app_bar_options`.
+The "done" button used to add a new dish and the "delete" button used to remove an existing one are added to the toolbar using `app_bar_options`.
 
 ## \values
 

@@ -18,11 +18,11 @@ The toolbar at the top has an "up" button that takes the user back to the main s
 
 Additionally, the toolbar contains a "done" button that appears only when user input is valid. Input is only considered to be valid when the name of the dish (ignoring leading and trailing whitespaces) is not empty and the overall length of the text in this field does not exceed the limit mentioned below it (50 characters at the moment).
 
-Clicking the "done" button adds the dish to the selected list and the user is taken back to the main screen with a message popping up that either says "New dish added" (if successful) or "Failed to add dish" (if unsuccessful).
+Clicking the "done" button adds the dish to the selected list and the user is taken back to the main screen with an appropriate message popping up.
 
 It is also possible to open this screen in "edit mode" which happens when a list item on the main screen is clicked. In this mode, the title of the screen is modified appropriately and all the relevant information for the chosen item is loaded.
 
-Clicking the "done" button in this case updates the existing dish rather than creating a new one. Updates may involve modifying details about the dish or even changing which list it should belong to. A message that either says "Dish updated successfully" (if successful) or "Failed to update dish" (if unsuccessful) is displayed after this step.
+Clicking the "done" button in this case updates the existing dish rather than creating a new one. Updates may involve modifying details about the dish or even changing which list it should belong to. Furthermore, there exists a "delete" button that allows the user to remove the dish from the database. Since this is a destructive action, a confirmation dialog is displayed first. Based on the action performed, a message is displayed after this step as well.
 
 ## DishCursorAdapter
 
