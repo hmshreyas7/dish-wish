@@ -78,6 +78,7 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
         ListView dishListView = view.findViewById(R.id.database_info);
         dishCursorAdapter = new DishCursorAdapter(getContext(), null);
         dishListView.setAdapter(dishCursorAdapter);
+        dishListView.setDivider(null);
 
         // Open AddDishActivity when ListView item is clicked
         dishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
