@@ -25,6 +25,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dish_title_text"
+            style="@style/InputTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -41,6 +42,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/dish_type"
+            style="@style/InputTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -55,6 +57,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/category"
+            style="@style/InputTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

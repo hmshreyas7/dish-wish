@@ -1,11 +1,27 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorOnSecondary">@color/colorIcon</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnSurface">@color/colorText</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorBackground</item>
+    </style>
+
+    <!-- TabLayout theme -->
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/colorBackground</item>
+    </style>
+
+    <!-- TextInputEditText theme -->
+    <style name="InputTheme">
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
 </resources>
