@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.example.dishwish.data.DishContract.DishEntry;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class AddDishActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -109,6 +110,14 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
                 String dishTitleString = dishTitleText.getText().toString();
                 doneItem.setVisible(dishTitleString.trim().length() > 0 && dishTitleString.length() <= maxDishTitleLength);
                 dishHasChanged = true;
+
+                TextInputLayout dishTitleLayout = findViewById(R.id.dish_title);
+
+                if (dishTitleString.length() > maxDishTitleLength) {
+                    dishTitleLayout.setError(getString(R.string.length_error_msg));
+                } else {
+                    dishTitleLayout.setError("");
+                }
             }
 
             @Override
