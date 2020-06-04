@@ -1,5 +1,6 @@
 package com.example.dishwish.data;
 
+import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -32,6 +33,18 @@ public final class DishContract {
 
     /* Inner class that defines the table contents */
     public static class DishEntry implements BaseColumns {
+
+        /**
+         * The MIME type of the {@link #CONTENT_URI} for a list of dishes.
+         */
+        public static final String CONTENT_LIST_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DISHES;
+
+        /**
+         * The MIME type of the {@link #CONTENT_URI} for a single dish.
+         */
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DISHES;
 
         /**
          * The content URI to access the dish data in the provider

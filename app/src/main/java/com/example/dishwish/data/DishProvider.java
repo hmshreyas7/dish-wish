@@ -181,6 +181,16 @@ public class DishProvider extends ContentProvider {
      */
     @Override
     public String getType(Uri uri) {
-        return null;
+        // Find what code the URI matches to
+        int match = uriMatcher.match(uri);
+        // Return MIME type based on the type of URI
+        switch (match) {
+            case DISHES:
+                return DishEntry.CONTENT_LIST_TYPE;
+            case DISH_ID:
+                return DishEntry.CONTENT_ITEM_TYPE;
+            default:
+                throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
+        }
     }
 }
