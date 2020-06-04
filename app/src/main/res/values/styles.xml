@@ -17,6 +17,8 @@
     <!-- TabLayout theme -->
     <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:background">@color/colorBackground</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabGravity">fill</item>
     </style>
 
     <!-- TextInputEditText theme -->
