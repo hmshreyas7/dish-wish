@@ -12,55 +12,68 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dish_title"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/field_spacing"
-        android:hint="@string/dish_title"
-        app:counterEnabled="true"
-        app:counterMaxLength="@string/character_count"
-        app:endIconMode="clear_text">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dish_title_text"
-            style="@style/InputTheme"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1" />
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dish_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/field_spacing"
+                android:hint="@string/dish_title"
+                app:counterEnabled="true"
+                app:counterMaxLength="@string/character_count"
+                app:endIconMode="clear_text">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/field_spacing"
-        android:hint="@string/dish_type">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dish_title_text"
+                    style="@style/InputTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
 
-        <AutoCompleteTextView
-            android:id="@+id/dish_type"
-            style="@style/InputTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/field_spacing"
+                android:hint="@string/dish_type">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/field_spacing"
-        android:hint="@string/category">
+                <AutoCompleteTextView
+                    android:id="@+id/dish_type"
+                    style="@style/InputTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <AutoCompleteTextView
-            android:id="@+id/category"
-            style="@style/InputTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/field_spacing"
+                android:hint="@string/category">
+
+                <AutoCompleteTextView
+                    android:id="@+id/category"
+                    style="@style/InputTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
