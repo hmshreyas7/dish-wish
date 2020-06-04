@@ -22,7 +22,7 @@
             android:name=".AddDishActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateVisible">
+            android:windowSoftInputMode="stateVisible|adjustResize">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
