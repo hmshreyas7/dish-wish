@@ -26,7 +26,7 @@ In addition to these, there is another directory here called `..\data`. Within t
 
 There are four main directories:
 
-1. `\drawable` - Icons and the app logo can be found here.
+1. `\drawable` - Icons used for different purposes can be found here.
 2. `\layout` - The screens, tabs, dropdown menus, list items, and toolbars are designed here.
 3. `\menu` - Menu items for the toolbars are designed here.
 4. `\values` - Multiple app constants for colors, dimensions, strings, and styles are defined here.
