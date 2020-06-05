@@ -1,4 +1,4 @@
-package com.example.dishwish;
+package com.dishwish;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.cursoradapter.widget.CursorAdapter;
 
-import com.example.dishwish.data.DishContract.DishEntry;
+import com.dishwish.data.DishContract.DishEntry;
 
 /**
  * {@link DishCursorAdapter} is an adapter for a list or grid view

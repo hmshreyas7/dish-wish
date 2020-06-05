@@ -1,4 +1,4 @@
-package com.example.dishwish.data;
+package com.dishwish.data;
 
 import android.content.ContentResolver;
 import android.net.Uri;
@@ -12,7 +12,7 @@ public final class DishContract {
      * content authority is the package name for the app, which is guaranteed to be unique on the
      * device.
      */
-    public static final String CONTENT_AUTHORITY = "com.example.dishwish";
+    public static final String CONTENT_AUTHORITY = "com.dishwish";
     /**
      * Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
      * the content provider.
@@ -20,8 +20,8 @@ public final class DishContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     /**
      * Possible path (appended to base content URI for possible URI's)
-     * For instance, content://com.example.dishwish/dishes/ is a valid path for
-     * looking at dish data. content://com.example.dishwish/menu/ will fail,
+     * For instance, content://com.dishwish/dishes/ is a valid path for
+     * looking at dish data. content://com.dishwish/menu/ will fail,
      * as the ContentProvider hasn't been given any information on what to do with "menu".
      */
     public static final String PATH_DISHES = "dishes";

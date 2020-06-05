@@ -1,4 +1,4 @@
-package com.example.dishwish;
+package com.dishwish;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.dishwish.data.DishContract.DishEntry;
+import com.dishwish.data.DishContract.DishEntry;
 
 public class DishFragmentPagerAdapter extends FragmentPagerAdapter {
 

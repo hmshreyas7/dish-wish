@@ -1,4 +1,4 @@
-package com.example.dishwish;
+package com.dishwish;
 
 import org.junit.Test;
 

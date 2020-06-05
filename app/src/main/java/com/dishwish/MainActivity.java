@@ -1,4 +1,4 @@
-package com.example.dishwish;
+package com.dishwish;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;

@@ -1,10 +1,10 @@
-package com.example.dishwish.data;
+package com.dishwish.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.dishwish.data.DishContract.DishEntry;
+import com.dishwish.data.DishContract.DishEntry;
 
 public class DishDbHelper extends SQLiteOpenHelper {
 

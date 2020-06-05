@@ -1,4 +1,4 @@
-package com.example.dishwish;
+package com.dishwish;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -28,7 +28,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.dishwish.data.DishContract.DishEntry;
+import com.dishwish.data.DishContract.DishEntry;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

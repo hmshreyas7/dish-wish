@@ -1,4 +1,4 @@
-package com.example.dishwish.data;
+package com.dishwish.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.dishwish.data.DishContract.DishEntry;
+import com.dishwish.data.DishContract.DishEntry;
 
 public class DishProvider extends ContentProvider {
 

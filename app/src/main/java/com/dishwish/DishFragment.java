@@ -1,4 +1,4 @@
-package com.example.dishwish;
+package com.dishwish;
 
 import android.content.ContentUris;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
-import com.example.dishwish.data.DishContract.DishEntry;
+import com.dishwish.data.DishContract.DishEntry;
 
 /**
  * A simple {@link Fragment} subclass.
