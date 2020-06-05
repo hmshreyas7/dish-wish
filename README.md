@@ -35,6 +35,6 @@ There are four main directories:
 
 More information about the above classes and resource files can be found using the following links:
 
-1. [User Interface](https://github.com/hmshreyas7/dish-wish/tree/master/app/src/main/java/com/example/dishwish)
-2. [Database](https://github.com/hmshreyas7/dish-wish/tree/master/app/src/main/java/com/example/dishwish/data)
+1. [User Interface](https://github.com/hmshreyas7/dish-wish/tree/master/app/src/main/java/com/dishwish)
+2. [Database](https://github.com/hmshreyas7/dish-wish/tree/master/app/src/main/java/com/dishwish/data)
 3. [Resources](https://github.com/hmshreyas7/dish-wish/tree/master/app/src/main/res)
