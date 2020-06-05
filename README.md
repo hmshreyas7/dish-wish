@@ -2,6 +2,10 @@
 
 Dish Wish is an Android app that allows users to maintain two types of wish lists: "To Cook" and "To Eat". These are presented as two separate tabs when the user opens the app where they can then add more items, update existing ones, or delete them.
 
+<img src="https://i.imgur.com/9V8dv3G.png" width="30%"/>
+<img src="https://i.imgur.com/N5eAXxz.png" width="30%"/>
+<img src="https://i.imgur.com/AOlcQRa.png" width="30%"/>
+
 ## Project Structure
 
 This project is organized just like any other Android project built using Android Studio. The key files of interest can be found in `\app`. Within that, the two most important ones are `..\java` and `..\res`.
