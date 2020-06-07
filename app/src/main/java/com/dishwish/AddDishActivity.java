@@ -189,7 +189,6 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
         addDishLayout.setFocusableInTouchMode(true);
 
         dishTitleText = findViewById(R.id.dish_title_text);
-        dishTitleText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         dishTitleText.requestFocus();
 
         dishTitleText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
