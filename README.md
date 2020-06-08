@@ -6,6 +6,8 @@ Dish Wish is an Android app that allows users to maintain two types of wish list
 
 <img src="https://i.imgur.com/9V8dv3G.png" width="30%"/> <img src="https://i.imgur.com/N5eAXxz.png" width="30%"/> <img src="https://i.imgur.com/AOlcQRa.png" width="30%"/>
 
+Release notes can be found [here](https://github.com/hmshreyas7/dish-wish/blob/master/Release%20Notes.md).
+
 ## Project Structure
 
 This project is organized just like any other Android project built using Android Studio. The key files of interest can be found in `\app`. Within that, the two most important ones are `..\java` and `..\res`.
