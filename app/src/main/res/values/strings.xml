@@ -24,4 +24,6 @@
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
     <string name="length_error_msg">Too long!</string>
+    <string name="empty_view_title">Your plate\'s empty!</string>
+    <string name="empty_view_subtitle">Get started by adding a dish</string>
 </resources>

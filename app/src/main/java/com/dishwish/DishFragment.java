@@ -76,6 +76,10 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
 
         // Use ListView to display details from database
         ListView dishListView = view.findViewById(R.id.database_info);
+
+        View emptyView = view.findViewById(R.id.empty_view);
+        dishListView.setEmptyView(emptyView);
+
         dishCursorAdapter = new DishCursorAdapter(getContext(), null);
         dishListView.setAdapter(dishCursorAdapter);
         dishListView.setDivider(null);
