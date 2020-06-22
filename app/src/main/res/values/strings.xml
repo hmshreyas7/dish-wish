@@ -26,4 +26,13 @@
     <string name="length_error_msg">Too long!</string>
     <string name="empty_view_title">Your plate\'s empty!</string>
     <string name="empty_view_subtitle">Get started by adding a dish</string>
+    <string name="settings">Settings</string>
+    <string name="list_order_key">list_order</string>
+    <string name="rate_key">rate</string>
+    <string name="dish_name_order">dish_name</string>
+    <string name="dish_name_order_desc">dish_name_desc</string>
+    <string name="date_added_order">date_added</string>
+    <string name="date_added_order_desc">date_added_desc</string>
+    <string name="list_order_title">Order lists by</string>
+    <string name="rate_title">Rate on Google Play</string>
 </resources>

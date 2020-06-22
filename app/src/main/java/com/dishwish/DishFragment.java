@@ -2,6 +2,7 @@ package com.dishwish;
 
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+import androidx.preference.PreferenceManager;
 
 import com.dishwish.data.DishContract.DishEntry;
 
@@ -31,6 +33,8 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
     private DishCursorAdapter dishCursorAdapter;
 
     private int dishCategory;
+
+    public static boolean LIST_ORDER_CHANGE = false;
 
     public DishFragment() {
         // Required empty public constructor
@@ -114,7 +118,21 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
         String[] selectionArgs = {Integer.toString(dishCategory)};
 
         // How the results should be sorted in the resulting Cursor
-        String sortOrder = DishEntry.COLUMN_DISH_TITLE;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String listOrderSetting = sharedPreferences.getString(getString(R.string.list_order_key), "");
+        String sortOrder;
+
+        if (listOrderSetting.equals(getString(R.string.dish_name_order))) {
+            sortOrder = DishEntry.COLUMN_DISH_TITLE;
+        } else if (listOrderSetting.equals(getString(R.string.dish_name_order_desc))) {
+            sortOrder = DishEntry.COLUMN_DISH_TITLE + " DESC";
+        } else if (listOrderSetting.equals(getString(R.string.date_added_order))) {
+            sortOrder = DishEntry._ID;
+        } else if (listOrderSetting.equals(getString(R.string.date_added_order_desc))) {
+            sortOrder = DishEntry._ID + " DESC";
+        } else {
+            sortOrder = "";
+        }
 
         // Create and return a CursorLoader that will take care of
         // creating a Cursor for the data being displayed.
@@ -136,5 +154,15 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onLoaderReset(Loader<Cursor> loader) {
         // Callback called when the data needs to be deleted
         dishCursorAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (LIST_ORDER_CHANGE) {
+            LoaderManager.getInstance(this).restartLoader(DISH_LOADER, null, this);
+            LIST_ORDER_CHANGE = (dishCategory != DishEntry.CATEGORY_EAT);
+        }
     }
 }
