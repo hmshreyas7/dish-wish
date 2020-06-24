@@ -36,6 +36,9 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
 
     public static boolean LIST_ORDER_CHANGE = false;
 
+    private ListView dishListView;
+    private View emptyView;
+
     public DishFragment() {
         // Required empty public constructor
     }
@@ -79,10 +82,10 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
         super.onViewCreated(view, savedInstanceState);
 
         // Use ListView to display details from database
-        ListView dishListView = view.findViewById(R.id.database_info);
+        dishListView = view.findViewById(R.id.database_info);
 
-        View emptyView = view.findViewById(R.id.empty_view);
-        dishListView.setEmptyView(emptyView);
+        emptyView = view.findViewById(R.id.empty_view);
+        emptyView.setVisibility(View.GONE);
 
         dishCursorAdapter = new DishCursorAdapter(getContext(), null);
         dishListView.setAdapter(dishCursorAdapter);
@@ -148,6 +151,8 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Update {@link DishCursorAdapter} with this new cursor containing updated dish data
         dishCursorAdapter.swapCursor(data);
+
+        dishListView.setEmptyView(emptyView);
     }
 
     @Override
