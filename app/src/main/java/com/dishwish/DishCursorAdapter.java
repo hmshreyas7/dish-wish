@@ -56,5 +56,15 @@ public class DishCursorAdapter extends CursorAdapter {
         TextView dishTitleView = view.findViewById(R.id.dish_title_view);
         String dishTitle = cursor.getString(cursor.getColumnIndex(DishEntry.COLUMN_DISH_TITLE));
         dishTitleView.setText(dishTitle);
+
+        int dishType = cursor.getInt(cursor.getColumnIndex(DishEntry.COLUMN_DISH_TYPE));
+
+        if (dishType == DishEntry.DISH_TYPE_SAVORY) {
+            dishTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(context.getDrawable(R.drawable.ic_savory_black_36dp),
+                    null, null, null);
+        } else {
+            dishTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(context.getDrawable(R.drawable.ic_sweet_black_36dp),
+                    null, null, null);
+        }
     }
 }

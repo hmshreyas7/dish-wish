@@ -3,6 +3,8 @@
     android:id="@+id/dish_title_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:drawablePadding="@dimen/field_spacing"
     android:fontFamily="sans-serif-medium"
+    android:gravity="center_vertical"
     android:padding="@dimen/field_spacing"
     android:textAppearance="?android:textAppearanceMedium" />
