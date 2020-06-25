@@ -123,18 +123,14 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
         // How the results should be sorted in the resulting Cursor
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         String listOrderSetting = sharedPreferences.getString(getString(R.string.list_order_key), "");
-        String sortOrder;
+        String sortOrder = DishEntry.COLUMN_DISH_TITLE;
 
-        if (listOrderSetting.equals(getString(R.string.dish_name_order))) {
-            sortOrder = DishEntry.COLUMN_DISH_TITLE;
-        } else if (listOrderSetting.equals(getString(R.string.dish_name_order_desc))) {
+        if (listOrderSetting.equals(getString(R.string.dish_name_order_desc))) {
             sortOrder = DishEntry.COLUMN_DISH_TITLE + " DESC";
         } else if (listOrderSetting.equals(getString(R.string.date_added_order))) {
             sortOrder = DishEntry._ID;
         } else if (listOrderSetting.equals(getString(R.string.date_added_order_desc))) {
             sortOrder = DishEntry._ID + " DESC";
-        } else {
-            sortOrder = "";
         }
 
         // Create and return a CursorLoader that will take care of
