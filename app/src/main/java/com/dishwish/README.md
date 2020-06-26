@@ -38,6 +38,14 @@ This class corresponds to each tab on the main screen. The appropriate data is f
 
 Individual fragments are "combined" together here. This is required to view them as tabs on the main screen. The ordering of these tabs and their corresponding title text can be modified in this class.
 
+## DishSettingsActivity
+
+The settings are loaded here using `DishSettingsFragment` by replacing a dummy container view.
+
+## DishSettingsFragment
+
+Actions associated with individual preferences/settings are handled here (for example, when the preference value changes or when it is clicked).  This fragment is used in `DishSettingsActivity`.
+
 ## MainActivity
 
 The two lists are displayed as tabs here with the help of `DishFragmentPagerAdapter`. There is a "+" button on the bottom right of the screen that takes the user to `AddDishActivity` and thus, allows them to add a new dish.
