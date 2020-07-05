@@ -3,7 +3,9 @@ package com.dishwish;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.TypedValue;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -23,6 +25,12 @@ public class DishSettingsActivity extends AppCompatActivity {
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        // Set color of Up button based on theme
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorOnPrimarySurface, typedValue, true);
+        int color = typedValue.data;
+        toolbar.getNavigationIcon().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
         // Set activity title
         setTitle(R.string.settings);

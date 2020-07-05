@@ -49,7 +49,6 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/dish_type"
-                    style="@style/InputTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -64,7 +63,6 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/category"
-                    style="@style/InputTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

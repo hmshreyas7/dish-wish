@@ -10,6 +10,11 @@
         app:summary="%s"
         app:title="@string/list_order_title" />
 
+    <SwitchPreferenceCompat
+        app:icon="@drawable/ic_brightness_3_black_36dp"
+        app:key="@string/night_mode_key"
+        app:title="@string/night_mode" />
+
     <Preference
         app:icon="@drawable/ic_star_border_black_36dp"
         app:key="@string/rate_key"

@@ -13,12 +13,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +62,12 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        // Set color of Up button based on theme
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorOnPrimarySurface, typedValue, true);
+        int color = typedValue.data;
+        toolbar.getNavigationIcon().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
         // Build list of dish types
         dishType = findViewById(R.id.dish_type);
@@ -174,7 +182,7 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
     public void buildMenuItems(AutoCompleteTextView menu, String[] items) {
         menu.setText(items[0], false);
         menu.setInputType(InputType.TYPE_NULL);
-        ArrayAdapter<String> menuAdapter = new ArrayAdapter<>(getApplicationContext(),
+        ArrayAdapter<String> menuAdapter = new ArrayAdapter<>(this,
                 R.layout.dropdown_menu_items, items);
         menu.setAdapter(menuAdapter);
     }
