@@ -31,7 +31,9 @@ public class DishSettingsFragment extends PreferenceFragmentCompat {
             nightModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if ((Boolean) newValue) {
+                    MainActivity.isNightModeEnabled = (Boolean) newValue;
+
+                    if (MainActivity.isNightModeEnabled) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     } else {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);

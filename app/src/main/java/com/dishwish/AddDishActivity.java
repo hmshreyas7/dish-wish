@@ -8,12 +8,17 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import android.app.ActivityManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +37,7 @@ import android.widget.Toast;
 
 import com.dishwish.data.DishContract.DishEntry;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -57,7 +63,17 @@ public class AddDishActivity extends AppCompatActivity implements LoaderManager.
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
 
-        // Get a support ActionBar corresponding to this toolbar
+        // Get toolbar's current color
+        Drawable toolbarBackground = toolbar.getBackground();
+        ColorStateList toolbarColor = ((MaterialShapeDrawable) toolbarBackground).getFillColor();
+
+        // Set that color as actionbar color in recent apps list
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name),
+                bitmap, toolbarColor.getDefaultColor());
+        this.setTaskDescription(taskDescription);
+
+        // Get a support actionbar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
