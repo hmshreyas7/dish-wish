@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.2.0
+
+* Added support for [night mode/dark theme](https://github.com/hmshreyas7/dish-wish/issues/16)
+* Fixed an issue where certain screens opened [more than once](https://github.com/hmshreyas7/dish-wish/issues/19) unnecessarily
+* Other minor fixes and improvements
+
 ## 1.1.0
 
 * Provided an option to [order](https://github.com/hmshreyas7/dish-wish/issues/7) lists by preference
