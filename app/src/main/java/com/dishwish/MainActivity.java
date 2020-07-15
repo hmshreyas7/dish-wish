@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
+
         if (isAppLaunch && Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             isNightModeEnabled = sharedPreferences.getBoolean(getString(R.string.night_mode_key), false);
