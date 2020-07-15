@@ -1,10 +1,12 @@
 package com.dishwish;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -18,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.dishwish.data.DishContract.DishEntry;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -88,13 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            Intent intent = new Intent(this, DishSettingsActivity.class);
-            startActivity(intent);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.share:
+                showShareOptionsDialog();
+                return true;
+            case R.id.settings:
+                Intent intent = new Intent(this, DishSettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -107,5 +114,41 @@ public class MainActivity extends AppCompatActivity {
         }
 
         isAppLaunch = false;
+    }
+
+    public void showShareOptionsDialog() {
+        // Create an AlertDialog.Builder and set the title, add click listeners
+        // for the different options on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.share)
+                .setItems(R.array.share_options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        String dishList;
+                        DishFragment dishFrag = (DishFragment) getSupportFragmentManager()
+                                .findFragmentByTag("android:switcher:" + R.id.pager + ":"
+                                        + which);
+                        dishList = dishFrag.getDishList();
+
+                        if (which == DishEntry.CATEGORY_COOK - 1) {
+                            dishList = getString(R.string.share_cook) + "\n" + dishList;
+                        } else {
+                            dishList = getString(R.string.share_eat) + "\n" + dishList;
+                        }
+
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, dishList);
+                        sendIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        startActivity(shareIntent);
+                    }
+                });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

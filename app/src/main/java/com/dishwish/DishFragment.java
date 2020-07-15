@@ -166,4 +166,17 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
             LIST_ORDER_CHANGE = (dishCategory != DishEntry.CATEGORY_EAT);
         }
     }
+
+    public String getDishList() {
+        Cursor cursor = dishCursorAdapter.getCursor();
+        StringBuilder dishList = new StringBuilder();
+        cursor.moveToPosition(-1);
+
+        while (cursor.moveToNext()) {
+            String dishTitle = cursor.getString(cursor.getColumnIndex(DishEntry.COLUMN_DISH_TITLE));
+            dishList.append("\n").append(dishTitle);
+        }
+
+        return dishList.toString();
+    }
 }
