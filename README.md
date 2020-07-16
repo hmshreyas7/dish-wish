@@ -1,11 +1,11 @@
 # Dish Wish
 
-Dish Wish is an Android app that allows users to maintain two types of wish lists: "To Cook" and "To Eat". These are presented as two separate tabs when the user opens the app where they can then add more items, update existing ones, or delete them.
+Dish Wish is an Android app that allows users to maintain two types of wish lists: "To Cook" and "To Eat". These are presented as two separate tabs when the user opens the app where they can then add more items, update existing ones, or delete them. Additional features are highlighted in the screenshots below.
 
 <a href="https://play.google.com/store/apps/details?id=com.dishwish"><img src="https://i.imgur.com/ggoeysc.png" width="30%"></a>
 
-<img src="https://i.imgur.com/pu8hU93.png" width="30%"/> <img src="https://i.imgur.com/esvqRaG.png" width="30%"/> <img src="https://i.imgur.com/atoku2s.png" width="30%"/>
-<img src="https://i.imgur.com/ZT75RAk.png" width="30%"/> <img src="https://i.imgur.com/k3Odrh2.png" width="30%"/>
+<img src="https://i.imgur.com/6z9CJwm.png" width="30%"/> <img src="https://i.imgur.com/esvqRaG.png" width="30%"/> <img src="https://i.imgur.com/atoku2s.png" width="30%"/>
+<img src="https://i.imgur.com/ZT75RAk.png" width="30%"/> <img src="https://i.imgur.com/A8cRRu5.png" width="30%"/> <img src="https://i.imgur.com/DlrwOTM.png" width="30%"/>
 
 Release notes can be found [here](https://github.com/hmshreyas7/dish-wish/blob/master/Release%20Notes.md).
 
