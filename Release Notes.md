@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.3.0
+
+* Provided an option to [share](https://github.com/hmshreyas7/dish-wish/issues/17) each wish list with others
+* Enhanced the app [launch](https://github.com/hmshreyas7/dish-wish/issues/20) experience
+* Other minor fixes and improvements
+
 ## 1.2.0
 
 * Added support for [night mode/dark theme](https://github.com/hmshreyas7/dish-wish/issues/16)
