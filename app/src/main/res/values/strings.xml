@@ -40,4 +40,7 @@
     <string name="rate_title">Rate on Google Play</string>
     <string name="share_cook">Dishes I wish to cook:</string>
     <string name="share_eat">Dishes I wish to eat:</string>
+    <string name="edit">Edit</string>
+    <string name="search_recipes">Search for recipes</string>
+    <string name="find_near_me">Find near me</string>
 </resources>

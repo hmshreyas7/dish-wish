@@ -16,4 +16,12 @@
         <item>@string/cook</item>
         <item>@string/eat</item>
     </string-array>
+    <string-array name="cook_dish_options">
+        <item>@string/edit</item>
+        <item>@string/search_recipes</item>
+    </string-array>
+    <string-array name="eat_dish_options">
+        <item>@string/edit</item>
+        <item>@string/find_near_me</item>
+    </string-array>
 </resources>

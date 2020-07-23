@@ -1,17 +1,21 @@
 package com.dishwish;
 
 import android.content.ContentUris;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -95,10 +99,10 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
         dishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), AddDishActivity.class);
-                Uri currentDishUri = ContentUris.withAppendedId(DishEntry.CONTENT_URI, id);
-                intent.setData(currentDishUri);
-                startActivity(intent);
+                Cursor cursor = dishCursorAdapter.getCursor();
+                cursor.moveToPosition(position);
+                String dishTitle = cursor.getString(cursor.getColumnIndex(DishEntry.COLUMN_DISH_TITLE));
+                showDishOptionsDialog(id, dishTitle.toLowerCase());
             }
         });
     }
@@ -178,5 +182,71 @@ public class DishFragment extends Fragment implements LoaderManager.LoaderCallba
         }
 
         return dishList.toString();
+    }
+
+    /**
+     * Displays a dialog with options to edit dish and search for recipes on Google / find nearby
+     * places serving that dish.
+     *
+     * @param id        The id of the selected dish.
+     * @param dishTitle The name of the selected dish in lower case.
+     */
+    private void showDishOptionsDialog(final long id, final String dishTitle) {
+        // Create an AlertDialog.Builder and add click listeners
+        // for the different options on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+        int itemsId = (dishCategory == DishEntry.CATEGORY_COOK)
+                ? R.array.cook_dish_options
+                : R.array.eat_dish_options;
+
+        final String queryTag = (dishCategory == DishEntry.CATEGORY_COOK)
+                ? "recipe"
+                : "near me";
+
+        builder.setItems(itemsId, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // The 'which' argument contains the index position
+                // of the selected item
+                switch (which) {
+                    case 0:
+                        Intent intent = new Intent(getContext(), AddDishActivity.class);
+                        Uri currentDishUri = ContentUris.withAppendedId(DishEntry.CONTENT_URI, id);
+                        intent.setData(currentDishUri);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        searchDishOnline(dishTitle + " " + queryTag);
+                        break;
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Runs a Google search using Chrome Custom Tabs based on the given query.
+     *
+     * @param query The string that needs to be searched.
+     */
+    private void searchDishOnline(String query) {
+        String url = "https://www.google.com/search?q=" + query;
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+
+        TypedValue typedValue = new TypedValue();
+        requireContext().getTheme().resolveAttribute(R.attr.colorPrimarySurface, typedValue, true);
+        int color = typedValue.data;
+        builder.setToolbarColor(color);
+
+        builder.setStartAnimations(requireContext(), R.anim.slide_in_right, R.anim.slide_out_left);
+        builder.setExitAnimations(requireContext(), R.anim.slide_in_left, R.anim.slide_out_right);
+
+        builder.setShowTitle(true);
+
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
     }
 }
