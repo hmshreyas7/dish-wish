@@ -46,6 +46,18 @@ public class DishSettingsFragment extends PreferenceFragmentCompat {
             nightModePreference.setVisible(false);
         }
 
+        Preference versionPreference = findPreference(getString(R.string.version_key));
+        Preference.SummaryProvider versionSummaryProvider = new Preference.SummaryProvider() {
+            @Override
+            public CharSequence provideSummary(Preference preference) {
+                return BuildConfig.VERSION_NAME;
+            }
+        };
+
+        if (versionPreference != null) {
+            versionPreference.setSummaryProvider(versionSummaryProvider);
+        }
+
         Preference ratePreference = findPreference(getString(R.string.rate_key));
         ratePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

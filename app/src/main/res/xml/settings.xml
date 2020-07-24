@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListPreference
-        app:defaultValue="@string/dish_name_order"
-        app:entries="@array/entries"
-        app:entryValues="@array/values"
-        app:icon="@drawable/ic_sort_black_36dp"
-        app:key="@string/list_order_key"
-        app:summary="%s"
-        app:title="@string/list_order_title" />
+    <PreferenceCategory
+        app:key="@string/display_category_key"
+        app:title="@string/display_category_title">
+        <ListPreference
+            app:defaultValue="@string/dish_name_order"
+            app:entries="@array/entries"
+            app:entryValues="@array/values"
+            app:icon="@drawable/ic_sort_black_36dp"
+            app:key="@string/list_order_key"
+            app:summary="%s"
+            app:title="@string/list_order_title" />
 
-    <SwitchPreferenceCompat
-        app:icon="@drawable/ic_brightness_3_black_36dp"
-        app:key="@string/night_mode_key"
-        app:title="@string/night_mode_title" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_brightness_3_black_36dp"
+            app:key="@string/night_mode_key"
+            app:title="@string/night_mode_title" />
+    </PreferenceCategory>
 
-    <Preference
-        app:icon="@drawable/ic_star_border_black_36dp"
-        app:key="@string/rate_key"
-        app:title="@string/rate_title" />
+    <PreferenceCategory
+        app:key="@string/about_category_key"
+        app:title="@string/about_category_title">
+        <Preference
+            app:icon="@drawable/ic_info_outline_black_36dp"
+            app:key="@string/version_key"
+            app:title="@string/version_title" />
+        <Preference
+            app:icon="@drawable/ic_star_border_black_36dp"
+            app:key="@string/rate_key"
+            app:title="@string/rate_title" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
