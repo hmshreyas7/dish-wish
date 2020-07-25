@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.4.0
+
+* Provided options to [search for recipes/find nearby restaurants](https://github.com/hmshreyas7/dish-wish/issues/21) for a dish
+* Improved the structure of the settings screen
+* Other minor fixes and improvements
+
 ## 1.3.0
 
 * Provided an option to [share](https://github.com/hmshreyas7/dish-wish/issues/17) each wish list with others
